@@ -2,7 +2,8 @@
 [![Rust Version](https://img.shields.io/badge/Rust-1.23.0-blue.svg)]()
 
 # Webserver
-Multi-threaded web server based on chapter 20 of the [Rust book (second edition)](https://doc.rust-lang.org/book/second-edition/ch20-00-final-project-a-web-server.html).
+This webserver leverages a thread pool to serve simultaneous connections.
+It is based on chapter 20 of the [Rust book (second edition)](https://doc.rust-lang.org/book/second-edition/ch20-00-final-project-a-web-server.html).
 
 ## Table of Contents
 - [Motivation](#motivation)

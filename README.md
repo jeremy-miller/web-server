@@ -28,7 +28,7 @@ I created this project while reading the [Rust book (second edition)](https://do
 
 ## Build
 ```cargo build --all```
-``````docker build -t jeremymiller/minigrep .``````
+``````docker build -t jeremymiller/webserver .``````
 
 ## Code Formatting
 
@@ -36,7 +36,7 @@ I created this project while reading the [Rust book (second edition)](https://do
 
 ## Test
 ```cargo test --all```
-```docker run -it --rm jeremymiller/minigrep cargo test --all```
+```docker run -it --rm jeremymiller/webserver cargo test --all```
 
 ## Run
 ```cargo run```

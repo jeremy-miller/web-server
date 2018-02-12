@@ -1,9 +1,0 @@
-.idea
-target/
-.dockerignore
-.gitignore
-.travis.yml
-Dockerfile
-LICENSE
-README.md
-**/*.rs.bk

@@ -1,0 +1,16 @@
+sudo: required
+services:
+    - docker
+language: rust
+rust:
+    # stable tested in Docker container
+    - beta
+    - nightly
+matrix:
+    allow_failures:
+        - rust: nightly
+cache: cargo
+install:
+    - cargo build --verbose --all
+script:
+    - cargo test --verbose --all

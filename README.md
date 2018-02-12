@@ -18,13 +18,15 @@ It is based on chapter 20 of the [Rust book (second edition)](https://doc.rust-l
 I created this project while reading the [Rust book (second edition)](https://doc.rust-lang.org/book/second-edition/).
 
 ## Prerequisites
-This tool requires Rust version 1.23.0 or higher to be installed.
+- [Docker](https://docs.docker.com/engine/installation/)
 
-## Bulid
+## Build
 ```cargo build```
+``````docker build -t jeremymiller/minigrep .``````
 
 ## Test
 ```cargo test```
+```docker run -it --rm jeremymiller/minigrep cargo test --verbose --all```
 
 ## Run
 ```cargo run```

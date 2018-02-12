@@ -1,16 +1,28 @@
+//! # Webserver
+//!
+//! This webserver leverages a thread pool to serve simultaneous connections.
+//! It is based on chapter 20 of the
+//! [Rust book (second edition)](https://doc.rust-lang.org/book/second-edition/ch20-00-final-project-a-web-server.html).
+
 use std::sync::{mpsc, Arc, Mutex};
 use std::thread;
 
+// Working around FnOnce limitations.  See below link for details.
+// https://doc.rust-lang.org/book/second-edition/ch20-05-sending-requests-via-channels.html#sending-requests-to-threads-via-channels
 trait FnBox {
     fn call_box(self: Box<Self>);
 }
 
+// Working around FnOnce limitations.  See below link for details.
+// https://doc.rust-lang.org/book/second-edition/ch20-05-sending-requests-via-channels.html#sending-requests-to-threads-via-channels
 impl<F: FnOnce()> FnBox for F {
     fn call_box(self: Box<F>) {
         (*self)()
     }
 }
 
+// Working around FnOnce limitations.  See below link for details.
+// https://doc.rust-lang.org/book/second-edition/ch20-05-sending-requests-via-channels.html#sending-requests-to-threads-via-channels
 type Job = Box<FnBox + Send + 'static>;
 
 enum Message {
@@ -18,19 +30,22 @@ enum Message {
     Terminate,
 }
 
+/// Pool of thread workers for processing requests.
 pub struct ThreadPool {
     workers: Vec<Worker>,
     sender: mpsc::Sender<Message>,
 }
 
 impl ThreadPool {
-    /// Create a new ThreadPool.
+    /// Create a new [`ThreadPool`](struct.ThreadPool.html).
     ///
     /// # Arguments
-    /// `size` - Number of threads in the pool
+    ///
+    /// `size` - Number of threads in the pool.
     ///
     /// # Panics
-    /// - If `size` is zero
+    ///
+    /// - If [`size`](struct.ThreadPool.html#argumentsfield.size) is zero.
     pub fn new(size: usize) -> ThreadPool {
         assert!(size > 0);
 
@@ -45,6 +60,13 @@ impl ThreadPool {
         ThreadPool { workers, sender }
     }
 
+    /// Sends an incoming request to the pool of workers for processing.
+    ///
+    /// # Arguments
+    ///
+    /// # Panics
+    ///
+    /// # Examples
     pub fn execute<F>(&self, f: F)
     where
         F: FnOnce() + Send + 'static,
@@ -56,6 +78,9 @@ impl ThreadPool {
 }
 
 impl Drop for ThreadPool {
+    /// Joins all worker threads in [`ThreadPool`](struct.ThreadPool.html) before exiting.
+    ///
+    /// # Panics
     fn drop(&mut self) {
         println!("Sending terminate message to all workers");
 

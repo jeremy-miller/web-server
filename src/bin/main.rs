@@ -1,3 +1,5 @@
+//! Start a multi-threaded webserver listening on `localhost:8080`.
+
 extern crate webserver;
 use webserver::ThreadPool;
 

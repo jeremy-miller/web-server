@@ -41,7 +41,11 @@ impl ThreadPool {
     ///
     /// # Arguments
     ///
-    /// `size` - Number of threads in the pool.
+    /// - `size` - Number of threads in the pool.
+    ///
+    /// # Return
+    ///
+    /// A new [`ThreadPool`](struct.ThreadPool.html).
     ///
     /// # Panics
     ///
@@ -64,9 +68,11 @@ impl ThreadPool {
     ///
     /// # Arguments
     ///
+    /// - `f` - Closure containing the code to be executed by the worker.
+    ///
     /// # Panics
     ///
-    /// # Examples
+    /// - If receiving end of worker channel has stopped listening (e.g. if all worker threads have stopped).
     pub fn execute<F>(&self, f: F)
     where
         F: FnOnce() + Send + 'static,
@@ -81,6 +87,9 @@ impl Drop for ThreadPool {
     /// Joins all worker threads in [`ThreadPool`](struct.ThreadPool.html) before exiting.
     ///
     /// # Panics
+    ///
+    /// - If receiving end of worker channel has stopped listening (e.g. if all worker threads have stopped).
+    /// - If `join` on worker thread fails.
     fn drop(&mut self) {
         println!("Sending terminate message to all workers");
 

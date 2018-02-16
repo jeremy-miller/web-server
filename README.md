@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/jeremy-miller/webserver.svg?branch=master)](https://travis-ci.org/jeremy-miller/webserver)
-[![codecov](https://codecov.io/gh/jeremy-miller/webserver/branch/master/graph/badge.svg)](https://codecov.io/gh/jeremy-miller/webserver)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jeremy-miller/webserver/blob/master/LICENSE)
 [![Rust Version](https://img.shields.io/badge/Rust-1.23.0-blue.svg)]()
 
